@@ -1,0 +1,201 @@
+html {
+  font-size: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+
+  /* For mobile phones: */
+  html {
+    font-size: 7px;
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: .5rem;
+  }  
+
+  .quote {
+    min-width: 20rem;
+    min-height: 30rem;
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem 1rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+    padding: 2rem 2rem;
+    border-radius: 2rem;
+  }  
+
+  .author {
+    font-size: 1.8rem;
+    text-align: right;
+    margin: 2rem 1rem;
+  }
+  
+}
+
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+  /* For tablets: */
+  html {
+    font-size: 12px;
+  }
+
+  .container {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 3rem;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+    padding: 2rem 2rem;
+    border-radius: 2rem;  
+  }
+
+  .quote {
+    
+    min-width: 20rem;
+    min-height: 20rem;
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem 10rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+    padding: 2rem 2rem;
+    border-radius: 2rem;
+  }
+  
+  .author {
+    font-size: 1.8rem;
+    text-align: right;
+    margin: 2rem 10rem;
+  }
+    
+}
+
+/*
+It is often useful to set box-sizing to border-box to layout 
+elements. This makes dealing with the sizes of elements much 
+easier, and generally eliminates a number of pitfalls you 
+can stumble on while laying out your content. 
+*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(244, 244, 244);
+  color: #333;
+}
+
+
+small {
+  font-size: 1.2rem;
+  text-align: center
+}
+
+
+.title {
+  font-size: 4.4rem;
+  text-align: center
+}
+
+
+.center {
+  text-align: center;
+}
+
+.label {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.input {
+  font-size: 1.6rem;
+  padding: 0.5rem 2rem;
+  line-height: 2.8rem;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.button {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  font-size: 2.4rem;
+  cursor: pointer;
+  transition: background-color 250ms;
+  margin: 1rem 1rem;
+}
+
+.margin {
+  margin-top: 9rem;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+
+.card-list {
+  margin-top: 4rem;
+}
+
+.card {
+  padding: 2rem 4rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  margin-bottom: 2rem;
+  background-color: white;
+}
+
+.card--title {
+  margin-bottom: 0.5rem;
+  font-size: 3.2rem;
+}
+
+.card--image {
+  margin: 0 auto;
+  display: block
+}
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
