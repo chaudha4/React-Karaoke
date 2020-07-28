@@ -2,76 +2,6 @@ html {
   font-size: 10px;
 }
 
-@media only screen and (max-width: 768px) {
-
-  /* For mobile phones: */
-  html {
-    font-size: 7px;
-  }
-
-  .container {
-    margin: 0 auto;
-    padding: .5rem;
-  }  
-
-  .quote {
-    min-width: 20rem;
-    min-height: 30rem;
-    font-size: 2rem;
-    text-align: center;
-    margin: 2rem 1rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
-    padding: 2rem 2rem;
-    border-radius: 2rem;
-  }  
-
-  .author {
-    font-size: 1.8rem;
-    text-align: right;
-    margin: 2rem 1rem;
-  }
-  
-}
-
-
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-  /* For tablets: */
-  html {
-    font-size: 12px;
-  }
-
-  .container {
-    margin: 0 auto;
-    max-width: 1000px;
-    padding: 3rem;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
-    padding: 2rem 2rem;
-    border-radius: 2rem;  
-  }
-
-  .quote {
-    
-    min-width: 20rem;
-    min-height: 20rem;
-    font-size: 2rem;
-    text-align: center;
-    margin: 2rem 10rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
-    padding: 2rem 2rem;
-    border-radius: 2rem;
-  }
-  
-  .author {
-    font-size: 1.8rem;
-    text-align: right;
-    margin: 2rem 10rem;
-  }
-    
-}
-
 /*
 It is often useful to set box-sizing to border-box to layout 
 elements. This makes dealing with the sizes of elements much 
@@ -89,21 +19,126 @@ body {
   color: #333;
 }
 
-
 small {
-  font-size: 1.2rem;
-  text-align: center
+  font-size: 1.5rem;
 }
 
+p {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+
+h1 {
+  font-size: 2.8rem;
+}
+
+li {
+  padding: .5rem;
+}
+
+audio {
+  box-shadow: 5px 5px 20px rgba(0,0, 0, 0.4);
+  border-radius: 1.2rem;
+  transform: scale(.80);
+  background-color: #ddd;
+}
+
+.container {
+  margin: 2% auto;
+  max-width: 90%;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+  padding: 2rem 2rem;
+  border-radius: 2rem; 
+}
+
+.navcontainer {
+  display: flex;
+  align-content: center;
+  margin-left: 20rem;
+}
+
+.audiocontainer{
+  display: block;
+  /*border: 1px solid rgba(0, 0, 0, 0.75);*/
+}
+
+.audioplayer{
+  /*border: 1px solid rgba(0, 0, 0, 0.75);*/
+  padding: 2rem 2rem;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+  border-radius: 2rem;
+ margin: 2rem 2rem;
+}
+
+/* The sidebar menu - For mobile some overrides done in media query*/
+.sidenav {
+  height: auto; /* Full-height: remove this if you want "auto" height */
+  z-index: 1; /* Stay on top */
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding: 2rem 2rem;
+  border-radius: 2rem;
+  margin: 2% 2%;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #070606;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.20);
+
+}
+
+/* Style page content */
+.main {
+  padding: 2rem 2rem; 
+}
+
+
+
+
+/* Using flex display to place items in center */
+.loading {
+  display: flex;
+  justify-content: center;
+  margin: 5% 5%;
+  /*border: 1px solid rgba(0, 0, 0, 0.75);*/
+}
 
 .title {
   font-size: 4.4rem;
-  text-align: center
+  text-align: center;
+  box-shadow: 5px 5px 20px rgba(0,0, 0, 0.1);
+  border-radius: 2rem;
+  padding: 2% 2%;
+  max-width: 60%;
+  margin-left: 20rem;
 }
 
+.artistcontainer {
+  font-size: 1.2rem;
+  text-align: left;
+  margin: auto 2rem;
+  /*box-shadow: 5px 5px 20px rgba(0,0, 0, 0.1);*/
+  border-radius: 2rem;
+  padding: 2% 2%;
+  display: flex;
+}
+
+.boxshadow {
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+  border-radius: 2rem;
+  padding: 4% 4%;
+}
 
 .center {
   text-align: center;
+}
+
+.flex {
+  display: flex;
 }
 
 .label {
@@ -115,19 +150,19 @@ small {
 .input {
   font-size: 1.6rem;
   padding: 0.5rem 2rem;
-  line-height: 2.8rem;
+  /*line-height: 2.8rem;
   border-radius: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ddd;*/
   margin-bottom: 1rem;
 }
 
 .button {
-  background-color: rgba(0, 0, 0, 0.75);
-  color: white;
-  padding: 1rem 2rem;
+  /*background-color: rgba(0, 0, 0, 0.75);
+  color: white;*/
+  padding: .8rem 2rem;
   border: 1px solid rgba(0, 0, 0, 0.75);
   border-radius: 20px;
-  font-size: 2.4rem;
+  /*font-size: 2.4rem;*/
   cursor: pointer;
   transition: background-color 250ms;
   margin: 1rem 1rem;
@@ -138,13 +173,9 @@ small {
 }
 
 .button:hover {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(219, 201, 201, 0.85);
 }
 
-
-.card-list {
-  margin-top: 4rem;
-}
 
 .card {
   padding: 2rem 4rem;
@@ -199,3 +230,37 @@ small {
     transform: rotate(360deg);
   }
 }
+
+/* Keep Overrides at bottom - CSS is applied in a last-match-wins format, 
+   that is to say that the style for the last declared selector that matches 
+   will be applied
+*/
+
+/* On smaller screens, change the style (less padding and a smaller font size) */
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 7px;
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: .5rem;
+  }
+
+  .sidenav {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: auto;
+    width: auto;
+  }
+
+  .title {
+    margin-left: 10rem;
+  }
+
+  .navcontainer {
+    margin-left: 2rem;
+  }
+
+} /* For mobile phones: */

@@ -1,94 +1,72 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
+import Loading from './views/Loading';
+import Artist from './views/Artist';
+import { fetchArtistsController} from './controllers/AppController';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Sidenav from './views/Sidenav';
+import Admin from './views/Admin';
 
-function App() {
+const App = () => {
 
-  console.log("Entering function App");
+  const [loading, setLoading] = useState(true);
+  const [artists, setArtists] = useState([]);
 
-  const [quote, setQuote] = useState([]);
-  const [db, setDb] = useState(0);
-
-  // Similar to instance variable in a class. Essentially, useRef 
-  // is like a “box” that can hold a mutable value in its .current property.
-
-  const indx = useRef(1);
-  const myTimer = useRef(null);
-
-  /**
-   * Similar to componentDidMount and componentDidUpdate.
-   * 
-   * Warning:  The effect hook runs when the component mounts 
-   * but also when the component updates. Because we are setting 
-   * the state after every data fetch, the component updates and 
-   * the effect runs again. It fetches the data again and again. 
-   * That's a bug and needs to be avoided. We only want to fetch 
-   * data when the component mounts. That's why you can provide 
-   * an empty array as second argument to the effect hook to avoid 
-   * activating it on component updates but only for the 
-   * mounting of the component.
-   */
+  console.log("Running in %s mode", process.env.NODE_ENV);
+  if (process.env.REACT_APP_AWS === "DNU") {
+    console.log("Not using AWS Bucket - Using Fake data locally");
+  }
+  console.log("AWS S3 Bucket Name in %s mode", process.env.REACT_APP_BUCKETNAME);
+  console.log("AWS S3 Bucket url ", process.env.REACT_APP_BASE_URL);
+  console.log("AWS S3 Bucket token", process.env.REACT_APP_ID);
 
   useEffect(() => {
-    console.log("fetch");
-    fetch("https://type.fit/api/quotes")
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(JSON.stringify(data));
-        setDb(data);  // Data is an array of structure that conatins text and author
-        setQuote(data[0]);  // Init the quotes to the first element
-      });
-  }, []);
+    fetchArtistsController((a) => {
+      setArtists(a);
+      setLoading(false);
+    });;
+  }, []);  // Or [someId] if effect needs props or state
 
-  const getNewQuote = () => {
-    setQuote(db[indx.current]); // Access the current value and then increment it.
+  const renderMe = (e) => {
+    if (loading) {
+      return (
+        <Loading />
+      );
+    }
 
-    indx.current = (indx.current < db.length - 1) ? indx.current + 1 : 0;
+    return (
+      <div className="container">
+        <h1 className="title">Dusnumbaries Karaoke</h1>
+        <div className="navcontainer">
+          <Router>
+            <Sidenav artists={artists} />
 
-    console.log("Index is now %s and max is %s", indx.current, db.length);
+            <div className="main">
+              <Switch>
+                {artists.map(artist => (
+                  <Route path={"/" + artist.slice(0, -1)} key={artist}>
+                    <Artist name={artist} key={artist} />
+                  </Route>
+                ))}
+
+                <Route path="/Add">
+                  <Admin artists={artists} />
+                </Route>
+              </Switch>
+            </div>
+          </Router>
+        </div>
+      </div>
+    );
   }
 
-  const playQuote = () => {
-    myTimer.current = setInterval(() => {
-      getNewQuote();
-    }, 1000)
-  }
+  return renderMe();
+};
 
-  const stopQuote = () => {
-    clearInterval(myTimer.current);
-  }  
-
-  return (
-    <div className="container">
-      <h1 className="title">Random Quote Generator</h1>
-
-      <div className="quote">
-        "{quote.text}"
-      </div>
-
-      <div className="author">
-        {quote.author ? quote.author : "Anonymous"}
-      </div>
-
-      <div className="center">
-        <button className="button margin" onClick={getNewQuote}>
-          Get a new Quote
-        </button>
-      </div>
-
-      <div className="center">
-        <button className="button" onClick={playQuote}>
-          Play
-        </button>
-        <button className="button" onClick={stopQuote}>
-          Stop
-        </button>
-
-      </div>
-
-    </div>
-  );
-}
 
 export default App;
