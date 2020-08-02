@@ -3,21 +3,21 @@ import React, {useState, useEffect} from "react";
 import {createArtist, deleteArtist} from '../controllers/ArtistController';
 import { Redirect } from "react-router-dom";
 
-export default function Admin({artists}) {
+export default function Admin({artists, refreshArtist}) {
 
     const [name, setName] = useState();
     const [redirect, setRedirect] = useState();
 
     function onFormSubmit(e) {
         e.preventDefault(); //  prevent a browser reload/refresh.
-        console.log("Going to Add - %s");
+        console.log("Going to Add - %s", name);
         createArtist(name, afterCreate);
-        //deleteArtist(name)
     }
 
     // After successfull creation, navigate to the new user.
-    function afterCreate() {
-        setRedirect("/" + name);
+    async function afterCreate() {
+        await refreshArtist();    // Refresh the whole page.
+        setRedirect("/" + name);  // Go to newly added user.
     }    
 
     function onChange(e) {

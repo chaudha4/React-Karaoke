@@ -13,8 +13,8 @@ export default function Sidenav({artists}) {
           
           {artists.map(artist => (
             <li key={artist}>
-              <Link to={artist.slice(0,-1)}>
-                <small>{artist.slice(0,-1)}</small>
+              <Link to={artist}>
+                <small>{artist}</small>
               </Link>
             </li>
           ))}

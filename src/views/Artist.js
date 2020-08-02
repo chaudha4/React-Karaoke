@@ -20,12 +20,18 @@ export default function Artist({name}) {
         setShowUpload(true);
     }
 
+    // After successfull creation, refresh songs.
+    async function refreshSongs() {
+        await fetchMp3s( name, (a) =>  setMp3s(a) );
+        //setRedirect("/" + name);  // Go to newly added user.
+    }    
+
     function renderArtist() {
         return (
 
             <div className="artistcontainer">
                 <div className="boxshadow center">
-                    <h2>{name.slice(0, -1)}</h2>
+                    <h2>{name}</h2>
                     <button className="button" onClick={handleUpload}>
                         Add Song
                     </button>
@@ -41,7 +47,8 @@ export default function Artist({name}) {
     }
 
     if (showUpload) {
-        return (<FileDialog artist={name} setShowUpload={setShowUpload}/>);
+        return (<FileDialog artist={name} refreshSongs={refreshSongs}
+            setShowUpload={setShowUpload} />);
     }
 
     return renderArtist();

@@ -2,11 +2,11 @@
 
 This is the repository for a Karaoke app designed to store your karaoke music in cloud and share it with your friends. It is developed with React and is designed to be hosted on Amazon S3.
 
-# Project Setup
+## Project Setup
 
 Please visit [setup page](./REACT.md) to see how the project is setup. 
 
-# Building and running
+## Building and running
 
 There are some addiotnal changes that you need to do before you can run this app.
 
@@ -22,6 +22,6 @@ Please provide your own credentials in `.env` that is used by [AwsS3Controller](
 
 Test locally using `npm start` and if things look fine, you can now host this application in AWS S3.
 
-# Hosting
+## Hosting
 
 TBD

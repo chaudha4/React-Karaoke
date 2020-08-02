@@ -1,15 +1,21 @@
 import React, {useState} from "react";
 import {uploadMp3s} from '../controllers/ArtistController';
+import Loading from './Loading';
 
-export default function FileDialog({artist, setShowUpload}) {
+export default function FileDialog({artist, refreshSongs, setShowUpload}) {
 
     const [file, setFile] = useState({});   // { name: "test.mp3", lastModified: " }
+    const [uploading, setUploading] = useState(false);
 
-    function onFormSubmit(e) {
+
+    async function onFormSubmit(e) {
         e.preventDefault(); //  prevent a browser reload/refresh.
         console.log("Going to Upload File - %o", file);
-        uploadMp3s(artist, file);
+        setUploading(true);
+        await uploadMp3s(artist, file);
         setShowUpload(false);   // Callback to hide this dialog from parent
+        refreshSongs();
+        setUploading(false);
     }
 
     function onChange(e) {
@@ -23,6 +29,13 @@ export default function FileDialog({artist, setShowUpload}) {
 
 
     function renderDialog() {
+
+        if (uploading) {
+            return (
+                <Loading />
+              );
+        }
+
         return (
             <div className="boxshadow">
                 <h2 className="center">{artist.slice(0, -1)}</h2>
@@ -33,7 +46,8 @@ export default function FileDialog({artist, setShowUpload}) {
                         <button className="button center" type="submit">
                             Upload
                         </button>
-                        <button className="button center" type="button" onClick={onCancel}>
+                        <button className="button center" type="button" 
+                        onClick={onCancel}>
                             Cancel
                         </button>
                     </div>

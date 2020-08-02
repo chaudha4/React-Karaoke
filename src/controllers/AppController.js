@@ -1,8 +1,25 @@
 
 import AWS from 'aws-sdk';
 import {getAwsS3} from './AwsS3Controller';
+import {getDropbox} from './DropboxController';
+
 
 const fetchArtistsController = async (callback) => {
+
+  var dbx = getDropbox();
+
+  dbx.filesListFolder({path: ''})
+  .then( data => {
+    console.log(data);
+    let names= data.entries.map( d => d.name);
+    console.log("Returning names - ", JSON.stringify(names)); 
+    callback(names);    
+  })
+  .catch(err => console.log("Failed"))
+
+};
+
+const fetchArtistsController1 = async (callback) => {
   //async function fetchArtistsController(callback) {
 
   // If AWS Do Not Use, just send back hardcoded data

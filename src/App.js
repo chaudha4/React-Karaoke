@@ -29,8 +29,20 @@ const App = () => {
     fetchArtistsController((a) => {
       setArtists(a);
       setLoading(false);
-    });;
+    });
   }, []);  // Or [someId] if effect needs props or state
+
+  // Callback function to fetch artists again.
+  async function refreshArtist() {
+    console.log("refreshArtist callback invoked");
+    fetchArtistsController(afterFetchArtist);    
+  };
+
+  // After getting data, need to render and remove the loading dialog.
+  let afterFetchArtist = (a) => {
+    setArtists(a);
+    setLoading(false);
+  };
 
   const renderMe = (e) => {
     if (loading) {
@@ -49,13 +61,15 @@ const App = () => {
             <div className="main">
               <Switch>
                 {artists.map(artist => (
-                  <Route path={"/" + artist.slice(0, -1)} key={artist}>
-                    <Artist name={artist} key={artist} />
+                  //<Route path={"/" + artist.slice(0, -1)} key={artist}>
+                  <Route path={"/" + artist} key={`path-${artist}`}>
+                    <Artist name={artist}
+                      key={`artist-${artist}`} />
                   </Route>
                 ))}
 
                 <Route path="/Add">
-                  <Admin artists={artists} />
+                  <Admin artists={artists} refreshArtist={refreshArtist}/>
                 </Route>
               </Switch>
             </div>

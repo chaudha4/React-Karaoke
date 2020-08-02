@@ -1,8 +1,44 @@
 
 import AWS from 'aws-sdk';
-import {getAwsS3, BASE_URL, BUCKETNAME} from './AwsS3Controller';
+import {getAwsS3, BASE_URL} from './AwsS3Controller';
+import {getDropbox} from './DropboxController'
+
+
 
 const fetchMp3s = async (artist, callback) => {
+  //async function fetchArtistsController(artis, callback) {
+
+    var dbx = getDropbox();
+
+    dbx.filesListFolder({path: `/${artist}`})
+    .then( data => {
+      console.log(data);
+
+      var promises = [];
+      data.entries.forEach(d => {
+        promises.push(dbx.filesGetTemporaryLink({path: d.path_display}));
+      });
+
+      Promise.all(promises).then(values => {
+        let names = values.map(v => {
+          return {
+            url: v.link,
+            name: v.metadata.name,
+            artist: artist,            
+          }
+        })
+        console.log("Returning mp3 - ", JSON.stringify(names));
+        console.log(values);
+        callback(names);    
+      })
+
+     
+    })
+    .catch(err => console.log("Failed"));
+};
+
+
+const fetchMp3s1 = async (artist, callback) => {
   //async function fetchArtistsController(artis, callback) {
 
   // If AWS Do Not Use, just send back hardcoded data
@@ -38,7 +74,24 @@ const fetchMp3s = async (artist, callback) => {
     .catch(err => console.log("Failed"));
 };
 
+
 const uploadMp3s = async (artist, file) => {
+
+  var dbx = getDropbox();
+
+  // Await ensures we wait till promises are fulfilled.
+  await dbx.filesUpload({path: `/${artist}/${file.name}`, contents: file})
+  .then( data => {
+    console.log("Uploaded %s", file.name);
+    console.log(data); 
+  })
+  .catch(err => {
+    console.log("Failed to upload");
+    console.log(err);
+  });
+};
+
+const uploadMp3s1 = async (artist, file) => {
 
   var fileName = encodeURIComponent(file.name);
   var filePath = artist + fileName;
@@ -61,6 +114,23 @@ const uploadMp3s = async (artist, file) => {
 };
 
 const createArtist = async (artist, callback) => {
+
+  var filePath = "/" + encodeURIComponent(artist);
+  var dbx = getDropbox();
+
+  dbx.filesCreateFolderV2({path: filePath})
+  .then(
+    data => {
+      console.log("Successfully uploaded %s ", filePath);
+      callback();
+    }
+  ).catch(err => {
+    console.log("Failed to upload %s ", filePath);
+    console.log(err);
+  });  
+};
+
+const createArtist1 = async (artist, callback) => {
 
   var filePath = encodeURIComponent(artist) + "/";
   var s3 = getAwsS3();
