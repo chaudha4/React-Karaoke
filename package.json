@@ -9,6 +9,7 @@
     "aws-sdk": "^2.721.0",
     "dropbox": "^5.2.1",
     "react": "^16.13.1",
+    "react-audio-player": "^0.13.0",
     "react-dom": "^16.13.1",
     "react-loading": "^2.0.3",
     "react-router-dom": "^5.2.0",

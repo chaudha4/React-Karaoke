@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import Loading from './views/Loading';
 import Artist from './views/Artist';
-import { fetchArtistsController} from './controllers/AppController';
+import {getArtists} from './controllers/ArtistController';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,15 +18,11 @@ const App = () => {
   const [artists, setArtists] = useState([]);
 
   console.log("Running in %s mode", process.env.NODE_ENV);
-  if (process.env.REACT_APP_AWS === "DNU") {
-    console.log("Not using AWS Bucket - Using Fake data locally");
-  }
-  console.log("AWS S3 Bucket Name in %s mode", process.env.REACT_APP_BUCKETNAME);
-  console.log("AWS S3 Bucket url ", process.env.REACT_APP_BASE_URL);
-  console.log("AWS S3 Bucket token", process.env.REACT_APP_ID);
+  console.log("Running with %s model", process.env.MODEL);
+
 
   useEffect(() => {
-    fetchArtistsController((a) => {
+    getArtists( a => {
       setArtists(a);
       setLoading(false);
     });
@@ -35,7 +31,7 @@ const App = () => {
   // Callback function to fetch artists again.
   async function refreshArtist() {
     console.log("refreshArtist callback invoked");
-    fetchArtistsController(afterFetchArtist);    
+    getArtists(afterFetchArtist);    
   };
 
   // After getting data, need to render and remove the loading dialog.

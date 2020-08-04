@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 
 import {fetchMp3s} from '../controllers/ArtistController';
-import {BASE_URL} from '../controllers/AwsS3Controller';
 import Audio from './Audio';
-import FileDialog from "./FileDialog";
+import UploadSong from "./UploadSong";
+import DeleteUser from "./DeleteUser";
 
 export default function Artist({name}) {
 
@@ -11,6 +11,7 @@ export default function Artist({name}) {
 
     const [mp3s, setMp3s] = useState([]);
     const [showUpload, setShowUpload] = useState(false);
+    const [deleteArtist, setDeleteArtist] = useState(false);
 
     useEffect( () => {
         fetchMp3s( name, (a) =>  setMp3s(a) );
@@ -18,6 +19,10 @@ export default function Artist({name}) {
 
     function handleUpload(e) {
         setShowUpload(true);
+    }
+
+    function handleDelete(e) {
+        setDeleteArtist(true);
     }
 
     // After successfull creation, refresh songs.
@@ -35,22 +40,29 @@ export default function Artist({name}) {
                     <button className="button" onClick={handleUpload}>
                         Add Song
                     </button>
+                    <button className="button" onClick={handleDelete}>
+                        Delete User
+                    </button>                    
                 </div>
 
                 <div className="audiocontainer">
                     {mp3s.map(a => {
-                        return (<Audio key={a.name} url={a.url} name={a.name} />)
+                        return (<Audio key={`audio-${a.name}`} url={a.url} name={a.name} />)
                     })}
                 </div>
             </div>
         );
     }
 
+    // Render based on what needs to be shown.
     if (showUpload) {
-        return (<FileDialog artist={name} refreshSongs={refreshSongs}
+        return (<UploadSong artist={name} refreshSongs={refreshSongs}
             setShowUpload={setShowUpload} />);
+    } else if (deleteArtist) {
+        return (<DeleteUser artist={name} />);
+    } else {
+        return renderArtist();    
     }
 
-    return renderArtist();
 
 }
