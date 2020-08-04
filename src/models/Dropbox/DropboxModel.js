@@ -111,12 +111,28 @@ const deleteArtistInDB = async (artist) => {
 
 };
 
+const deleteSong = async (artist, song) => {
+
+  const filePath = "/" + artist + "/" + song;
+  const dbx = getDropbox();
+
+  await dbx.filesDeleteV2({path: filePath})
+  .then( d => {
+    console.log("deleteArtistInDB::Successfully deleted %s ", filePath);
+  }).catch ( err => {
+    console.log("deleteArtistInDB::Failed to delete %s ", filePath);
+    console.log(err);
+  });
+
+};
+
 export {
   fetchArtistsFromDB,
   fetchMp3sFromDB,
   uploadMp3sToDB,
   createArtistInDB,
   deleteArtistInDB,
+  deleteSong,
 };
 
 

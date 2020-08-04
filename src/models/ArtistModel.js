@@ -70,11 +70,26 @@ const deleteOldArtist = async (artist) => {
     }
 }
 
+const deleteSong = async (artist, song) => {
+    switch (process.env.REACT_APP_MODEL) {
+        case 'DROPBOX':
+            await db.deleteSong(artist, song);
+            break;
+        case 'S3':
+            // TBD
+            break;
+        default:
+            console.log("Error - No Model Found");
+            
+    }
+}
+
 export {
     fetchArtists, 
     getMp3s,
     pushMp3s,
     createNewArtist,
     deleteOldArtist,
+    deleteSong,
 };
 

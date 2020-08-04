@@ -12,16 +12,13 @@ export default function UploadSong({ artist, refreshSongs, setShowUpload }) {
 
     async function onFormSubmit(e) {
         e.preventDefault(); //  prevent a browser reload/refresh.
-        if (file.name && ( file.name.endsWith(".mp3") || file.name.endsWith(".ogg"))) {
-            console.log("FileDialog::Going to Upload File - %o", file);
-            setUploading(true);
-            await model.pushMp3s(artist, file);
-            setShowUpload(false);   // Callback to hide this dialog from parent
-            refreshSongs();
-            setUploading(false);
-        } else {
-            console.log("File must be mp3 File - %o", file);
-        }
+        console.log("FileDialog::Going to Upload File - %o", file);
+        setUploading(true);
+        await model.pushMp3s(artist, file);
+        setShowUpload(false);   // Callback to hide this dialog from parent
+        refreshSongs();
+        setUploading(false);
+
     }
 
     function onChange(e) {
