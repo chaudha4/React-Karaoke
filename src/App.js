@@ -20,10 +20,10 @@ const App = () => {
   const [artists, setArtists] = useState([]);
 
   console.log("Running in %s mode", process.env.NODE_ENV);
-  console.log("Running with %s model", process.env.MODEL);
+  console.log("Running with %s model", process.env.REACT_APP_MODEL);
 
 
-  useEffect( () => {
+  useEffect(() => {
     fetchData();
   }, []);  // Or [someId] if effect needs props or state
 
@@ -68,6 +68,12 @@ const App = () => {
             </div>
           </Router>
         </div>
+
+        <div className='debug'>
+          Mode: {process.env.NODE_ENV} <br/>
+          Using {process.env.REACT_APP_MODEL} for storage <br/>
+        </div>
+
       </div>
     );
   }

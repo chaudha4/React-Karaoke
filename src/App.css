@@ -23,6 +23,8 @@ small {
   font-size: 1.5rem;
 }
 
+
+
 p {
   font-size: 1.4rem;
 }
@@ -70,7 +72,7 @@ audio {
   padding: 2rem 2rem;
   box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
   border-radius: 2rem;
- margin: 2rem 2rem;
+  margin: 2rem 2rem;
 }
 
 /* The sidebar menu - For mobile some overrides done in media query*/
@@ -96,7 +98,11 @@ audio {
   padding: 2rem 2rem; 
 }
 
-
+.debug {
+  font-size: 1rem;
+  text-align: right;
+  align-items: center;
+}
 
 
 /* Using flex display to place items in center */

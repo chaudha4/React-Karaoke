@@ -4,10 +4,6 @@ export default function Audio({url, name}) {
 
     console.log("Entering Audio for %s", name);
 
-    function onCanPlayThrough(d) {
-        console.log("canplaythrough %o", d);
-    }
-
     return (
         <div className='audioplayer'>
             <p>{name}</p>

@@ -7,10 +7,8 @@ const fetchArtists = async () => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX': ;
             return await db.fetchArtistsFromDB();
-            break;
         case 'S3':
             return await s3.fetchArtistsFromS3();;
-            break;
         default:
             console.log("Error - No Model Found");
             return local.fetchArtistsFromLocal();
@@ -21,10 +19,8 @@ const getMp3s = async (artist) => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX':
             return await db.fetchMp3sFromDB(artist);
-            break;
         case 'S3':
             return await s3.fetchMp3sFromS3(artist);
-            break;
         default:
             console.log("Error - No Model Found");
             return local.fetchMp3sFromLocal(artist);
