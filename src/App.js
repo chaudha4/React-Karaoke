@@ -2,15 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import Loading from './views/Loading';
 import Artist from './views/Artist';
-import {getArtists} from './controllers/ArtistController';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 import Sidenav from './views/Sidenav';
 import Admin from './views/Admin';
+import * as model from './models/ArtistModel';
 
 const App = () => {
 
@@ -21,24 +23,20 @@ const App = () => {
   console.log("Running with %s model", process.env.MODEL);
 
 
-  useEffect(() => {
-    getArtists( a => {
-      setArtists(a);
-      setLoading(false);
-    });
+  useEffect( () => {
+    fetchData();
   }, []);  // Or [someId] if effect needs props or state
 
   // Callback function to fetch artists again.
-  async function refreshArtist() {
-    console.log("refreshArtist callback invoked");
-    getArtists(afterFetchArtist);    
+  function refreshArtists() {
+    fetchData();
   };
 
-  // After getting data, need to render and remove the loading dialog.
-  let afterFetchArtist = (a) => {
-    setArtists(a);
+  async function fetchData() {
+    setArtists(await model.fetchArtists());
     setLoading(false);
   };
+
 
   const renderMe = (e) => {
     if (loading) {
@@ -57,15 +55,14 @@ const App = () => {
             <div className="main">
               <Switch>
                 {artists.map(artist => (
-                  //<Route path={"/" + artist.slice(0, -1)} key={artist}>
                   <Route path={"/" + artist} key={`path-${artist}`}>
-                    <Artist name={artist}
-                      key={`artist-${artist}`} />
+                    <Artist name={artist} key={`artist-${artist}`}
+                      refresh={refreshArtists} />
                   </Route>
                 ))}
 
                 <Route path="/Add">
-                  <Admin artists={artists} refreshArtist={refreshArtist}/>
+                  <Admin artists={artists} refresh={refreshArtists} />
                 </Route>
               </Switch>
             </div>

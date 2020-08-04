@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { uploadMp3s } from '../controllers/ArtistController';
+
 import Loading from './Loading';
+
+import * as model from './../models/ArtistModel';
 
 export default function UploadSong({ artist, refreshSongs, setShowUpload }) {
 
@@ -13,7 +15,7 @@ export default function UploadSong({ artist, refreshSongs, setShowUpload }) {
         if (file.name && ( file.name.endsWith(".mp3") || file.name.endsWith(".ogg"))) {
             console.log("FileDialog::Going to Upload File - %o", file);
             setUploading(true);
-            await uploadMp3s(artist, file);
+            await model.pushMp3s(artist, file);
             setShowUpload(false);   // Callback to hide this dialog from parent
             refreshSongs();
             setUploading(false);

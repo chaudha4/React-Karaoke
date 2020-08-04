@@ -1,52 +1,33 @@
 
-import {
-    fetchArtistsFromDB,
-    fetchMp3sFromDB,
-    uploadMp3sToDB,
-    createArtistInDB,
-    deleteArtistInDB,
-} from "./Dropbox/DropboxModel";
-
-import {
-    fetchArtistsFromS3,
-    fetchMp3sFromS3,
-    uploadMp3sToS3,
-    createArtistInS3,
-    deleteArtistInS3,
-} from "./S3/S3Model";
-
-import {
-    fetchArtistsFromLocal,
-    fetchMp3sFromLocal,
-    createArtistLocal,
-} from "./LocalStorage/LocalModel"
-
+import * as db from "./Dropbox/DropboxModel";
+import * as s3 from "./S3/S3Model";
+import * as local from "./LocalStorage/LocalModel" 
 
 const fetchArtists = async () => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX': ;
-            return await fetchArtistsFromDB();
+            return await db.fetchArtistsFromDB();
             break;
         case 'S3':
-            return await fetchArtistsFromS3();;
+            return await s3.fetchArtistsFromS3();;
             break;
         default:
             console.log("Error - No Model Found");
-            return fetchArtistsFromLocal();
+            return local.fetchArtistsFromLocal();
     }
 };
 
 const getMp3s = async (artist) => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX':
-            return await fetchMp3sFromDB(artist);
+            return await db.fetchMp3sFromDB(artist);
             break;
         case 'S3':
-            return await fetchMp3sFromS3(artist);
+            return await s3.fetchMp3sFromS3(artist);
             break;
         default:
             console.log("Error - No Model Found");
-            return fetchMp3sFromLocal(artist);
+            return local.fetchMp3sFromLocal(artist);
     }
 
 };
@@ -54,10 +35,10 @@ const getMp3s = async (artist) => {
 const pushMp3s = async (artist, file) => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX':
-            await uploadMp3sToDB(artist, file);
+            await db.uploadMp3sToDB(artist, file);
             break;
         case 'S3':
-            await uploadMp3sToS3(artist, file);
+            await s3.uploadMp3sToS3(artist, file);
             break;
         default:
             console.log("Error - No Model Found");
@@ -68,10 +49,10 @@ const pushMp3s = async (artist, file) => {
 const createNewArtist = async (artist, callback) => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX':
-            createArtistInDB(artist, callback);
+            db.createArtistInDB(artist, callback);
             break;
         case 'S3':
-            createArtistInS3(artist, callback);
+            s3.createArtistInS3(artist, callback);
             break;
         default:
             console.log("Error - No Model Found");
@@ -82,10 +63,10 @@ const createNewArtist = async (artist, callback) => {
 const deleteOldArtist = async (artist) => {
     switch (process.env.REACT_APP_MODEL) {
         case 'DROPBOX':
-            await deleteArtistInDB(artist);
+            await db.deleteArtistInDB(artist);
             break;
         case 'S3':
-            await deleteArtistInS3(artist);
+            await s3.deleteArtistInS3(artist);
             break;
         default:
             console.log("Error - No Model Found");

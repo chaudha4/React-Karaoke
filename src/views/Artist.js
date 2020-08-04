@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 
-import {fetchMp3s} from '../controllers/ArtistController';
 import Audio from './Audio';
 import UploadSong from "./UploadSong";
 import DeleteUser from "./DeleteUser";
 
-export default function Artist({name}) {
+import * as model from './../models/ArtistModel';
+
+export default function Artist({name, refresh}) {
 
     console.log("Entering Artist for %s", name);
 
@@ -14,11 +15,18 @@ export default function Artist({name}) {
     const [deleteArtist, setDeleteArtist] = useState(false);
 
     useEffect( () => {
-        fetchMp3s( name, (a) =>  setMp3s(a) );
+        async function fetchData() {
+            setMp3s(await model.getMp3s(name));
+        };
+        fetchData();
     }, [name]); // Only process if name changes
 
     function handleUpload(e) {
         setShowUpload(true);
+    }
+
+    function onCancel(e) {
+        setDeleteArtist(false);
     }
 
     function handleDelete(e) {
@@ -27,8 +35,7 @@ export default function Artist({name}) {
 
     // After successfull creation, refresh songs.
     async function refreshSongs() {
-        await fetchMp3s( name, (a) =>  setMp3s(a) );
-        //setRedirect("/" + name);  // Go to newly added user.
+        setMp3s(await model.getMp3s(name));
     }    
 
     function renderArtist() {
@@ -59,7 +66,7 @@ export default function Artist({name}) {
         return (<UploadSong artist={name} refreshSongs={refreshSongs}
             setShowUpload={setShowUpload} />);
     } else if (deleteArtist) {
-        return (<DeleteUser artist={name} />);
+        return (<DeleteUser artist={name} onCancel={onCancel} refresh={refresh} />);
     } else {
         return renderArtist();    
     }

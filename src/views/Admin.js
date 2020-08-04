@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 
-import {createArtist, deleteArtist} from '../controllers/ArtistController';
+import * as model from './../models/ArtistModel';
+
 import { Redirect } from "react-router-dom";
 
-export default function Admin({artists, refreshArtist}) {
+export default function Admin({artists, refresh}) {
 
     const [name, setName] = useState();
     const [redirect, setRedirect] = useState();
@@ -11,12 +12,12 @@ export default function Admin({artists, refreshArtist}) {
     function onFormSubmit(e) {
         e.preventDefault(); //  prevent a browser reload/refresh.
         console.log("Going to Add - %s", name);
-        createArtist(name, afterCreate);
+        model.createNewArtist(name, afterCreate);
     }
 
     // After successfull creation, navigate to the new user.
     async function afterCreate() {
-        await refreshArtist();    // Refresh the whole page.
+        await refresh();    // Refresh the whole page.
         setRedirect("/" + name);  // Go to newly added user.
     }    
 

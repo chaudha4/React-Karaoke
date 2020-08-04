@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import { deleteArtist } from '../controllers/ArtistController';
 
-export default function DeleteUser({ artist }) {
+import * as model from './../models/ArtistModel';
+
+export default function DeleteUser({ artist, onCancel, refresh }) {
 
     async function onFormSubmit(e) {
         e.preventDefault(); //  prevent a browser reload/refresh.
-        deleteArtist(artist);
+        await model.deleteOldArtist(artist);
+        refresh();  // reload the page
     }
-
-    function onCancel(e) {
-        //setShowUpload(false);
-    }
-
 
     function renderDialog() {
 
