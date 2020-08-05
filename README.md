@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4334fad3-aace-4bc6-8b0f-29638848a36b/deploy-status)](https://app.netlify.com/sites/adoring-davinci-39e580/deploys)
+
 # Welcome
 
 This is the repository for a Karaoke app designed to store your karaoke music in cloud and share it with your friends. It is developed with React, therefore, is a static website that can be hosted anywhere including Amazon S3. The media data is served from Dropbox or S3 (based on setting in .env)
