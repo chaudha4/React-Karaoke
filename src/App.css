@@ -164,6 +164,7 @@ audio {
 
 .audioplayer--title {
   display: flex;
+  align-items: center;
 }
 
 .button {
@@ -253,24 +254,26 @@ audio {
   }
 
   .container {
-    margin: 0 auto;
     padding: .5rem;
-  }
-
-  .sidenav {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: auto;
-    width: auto;
+    box-shadow: none;
   }
 
   .title {
     margin-left: 10rem;
+    font-size: 3rem;
   }
 
   .navcontainer {
     margin-left: 2rem;
+    display: block;
+  }
+
+  .artistcontainer {
+    display: inline;
+  }
+
+  audio {
+    transform: scale(.65 );
   }
 
 } /* For mobile phones: */
