@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import ReactLoading from 'react-loading';
 
 export default function loading() {

@@ -19,7 +19,11 @@ export default function Audio({url, name, artist, trigger}) {
             //setMp3s(await model.getMp3s(name));
         };
         DoAsync();
-    }, [trigger]); // Only process if trigger changed
+    }, [trigger, artist, checked, name]); // Only process if trigger changed
+
+    useEffect( () => {
+        console.log("");
+    }, []); // Only process if trigger changed    
 
     function onChange(e) {
         //console.log(e.target);

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Loading from './views/Loading';
 import Artist from './views/Artist';
@@ -7,8 +7,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useHistory
 } from "react-router-dom";
 import Sidenav from './views/Sidenav';
 import Admin from './views/Admin';
