@@ -30,6 +30,11 @@ npm list
 npm outdated
 ```
 
+## List unused packages
+```
+npx depcheck
+```
+
 ## Fix vulnerabilities:
 ```
 npm audit fix
@@ -42,9 +47,9 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.
+Runs the app to use dropbox.
 
-### `REACT_APP_AWS=DNU npm start`
+### `REACT_APP_MODEL=DROPBOX npm start`
 Special mode where AWS is not accessed. Instead fake data is provided.
 
 ### `npm test`

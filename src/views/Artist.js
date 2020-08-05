@@ -39,10 +39,10 @@ export default function Artist({ name, refresh }) {
     function handleDelSong(e) {
         // Just toggle to trigger a downstream delete that is
         // handled by each child on its own.
-        setSpin(true);
         setTrigger(!trigger);
 
         async function fetchData() {
+            setSpin(true);
             setMp3s(await model.getMp3s(name));
             setSpin(false);
         };

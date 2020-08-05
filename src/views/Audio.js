@@ -9,10 +9,12 @@ export default function Audio({url, name, artist, trigger}) {
     console.log("Entering Audio for %s", name);
 
     useEffect( () => {
+        console.log("Audio::useEffect Received a trigger from Parent ", trigger, checked);
         async function DoAsync() {
-            console.log("Audio::useEffect Recived a trigger from Parent ", trigger);
+            console.log("Audio::useEffect Deleting Song %s", name);
             if(checked) {
                 await model.deleteSong(artist, name);
+                setChecked(false);
             }
             //setMp3s(await model.getMp3s(name));
         };

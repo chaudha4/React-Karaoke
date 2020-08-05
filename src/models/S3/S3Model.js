@@ -5,9 +5,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const getAwsS3 = () => {
 
-    if (process.env.REACT_APP_AWS === "DNU") {
-        console.log("Not using AWS Bucket - Using Fake data locally");
-    }
     console.log("AWS S3 Bucket Name in %s mode", process.env.REACT_APP_BUCKETNAME);
     console.log("AWS S3 Bucket url ", process.env.REACT_APP_BASE_URL);
     console.log("AWS S3 Bucket token", process.env.REACT_APP_ID);
@@ -35,7 +32,10 @@ const fetchArtistsFromS3 = async () => {
 
     await s3.listObjects({ Delimiter: '/' }).promise()
         .then(data => {
-            names = data.CommonPrefixes.map(data => data.Prefix.slice(0, -1));
+            names = data.CommonPrefixes.map(data => {
+                let name = decodeURIComponent(data.Prefix);
+                return name.slice(0, -1)
+            });
             console.log("fetchArtistsFromS3::Returning names - ", JSON.stringify(names));
             //callback(names);
             return names;
@@ -81,7 +81,8 @@ const fetchMp3sFromS3 = async (artist) => {
 const uploadMp3sToS3 = async (artist, file) => {
 
     var fileName = encodeURIComponent(file.name);
-    var filePath = artist + "/" + fileName;
+    var filePath = encodeURIComponent(artist) + "/" + file.name;
+    //var filePath = encodeURIComponent(artist) + "/";
     var s3 = getAwsS3();
 
     var promise = s3.upload({
@@ -147,12 +148,33 @@ const deleteArtistInS3 = async (artist) => {
     if (listedObjects.IsTruncated) await deleteArtistInS3(artist);
   };
 
+
+  const deleteSong = async (artist, song) => {
+
+    const filePath = encodeURIComponent(artist) + "/" + encodeURIComponent(song);
+
+    console.log("deleteSong:: Deleting %s", filePath)
+    var s3 = getAwsS3();
+    const params = {
+        Key: filePath
+    };
+    await s3.deleteObject(params).promise()
+    .then( d => {
+      console.log("deleteSong::Successfully deleted %s ", filePath);
+    }).catch ( err => {
+      console.log("deleteSong::Failed to delete %s ", filePath);
+      console.log(err);
+    });
+  
+  };  
+
 export {
     fetchArtistsFromS3,
     fetchMp3sFromS3,
     uploadMp3sToS3,
     createArtistInS3,
     deleteArtistInS3,
+    deleteSong,
 };
 
 /*
