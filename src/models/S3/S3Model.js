@@ -50,7 +50,9 @@ const fetchMp3sFromS3 = async (artist) => {
     var s3 = getAwsS3();
     let mp3 = [];
 
-    await s3.listObjects({ Prefix: artist }).promise()
+    let prefix = encodeURIComponent(artist);
+
+    await s3.listObjects({ Prefix: prefix }).promise()
         .then(data => {
             console.log("fetchMp3sFromS3::Received Data - ", JSON.stringify(data));
             mp3 = data.Contents
