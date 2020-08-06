@@ -6,37 +6,36 @@ This is the repository for a Karaoke app designed to store your karaoke music in
 
 ## Project Setup
 
-Please visit [setup page](./REACT.md) to see how the project is setup. 
+Please visit [setup page](./REACT.md) to see how the project is setup. You can choose to use AWS S3 or Dropbox or Local (for testing).
 
-## Building and running
-
-There are some addiotnal changes that you need to do before you can run this app.
-
-## Set up AWS S3 bucket
+## Set up AWS S3 bucket (Option 1)
 
 Please signup with Amazon and setup a S3 bucket. Charges will apply unless you have a free tier account with Amazon.
 
-## Update .env
+### Provide AWS credentials
 
-Please provide your own credentials in `.env` that is used by [AwsS3Controller](src/controllers/AwsS3Controller.js.js) to access your AWS S3 bucket.
+Please provide your own credentials (either in `.env` or export it as environment variables) that is used by [AwsS3Controller](src/controllers/AwsS3Controller.js.js) to access your AWS S3 bucket.
+
+## DropBox (Option 2)
+You can also use dropbox to store mp3. You need to signup and get API token. You can then add the token in .env file or export it so that it is available to app at run time.
 
 ## Test
 
 Test locally using `npm start` and if things look fine, you can now host this application in AWS S3.
 
-# Setting up the .env
+# Setting up the environment
 
-Please create a .env file at root. See an example below. Please update (or remove) each tag with you account information. Please note that the values shown below won't work - they are just an illustration.
+This step depends on your build environment. If you prefer to use .env files, you can create one at root. See an example below. Please update (or remove) each tag with you account information. Please note that the values shown below won't work - they are just an illustration.
 
 ```
 # Can be DROPBOX or S3 or LOCAL
-REACT_APP_MODEL = 'DROPBOX'
+REACT_APP_MODEL = '<<DROPBOX>>'
 
 # S3 Specific - Only if using S3
-REACT_APP_BUCKETNAME = 'karaoke'
-REACT_APP_BASE_URL = 'https://karaoke.s3.amazonaws.com/'
-REACT_APP_ID = 'abcd'
+REACT_APP_BUCKETNAME = '<<karaoke>>'
+REACT_APP_BASE_URL = '<<https://karaoke.s3.amazonaws.com/>>'
+REACT_APP_ID = '<<abcd>>'
 
 # Dropbox Specific - only if using dropbox.
-REACT_APP_DROPBOX_TOKEN='abcd'
+REACT_APP_DROPBOX_TOKEN='<<abcd>>'
 ```
