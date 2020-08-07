@@ -31,6 +31,10 @@ export default function Admin({ artists, refresh }) {
         }        
     }
 
+    function onCancel(e) {
+        setRedirect("/");
+    }
+
     function renderMe() {
 
         if (redirect) {
@@ -39,7 +43,7 @@ export default function Admin({ artists, refresh }) {
 
         return (
             <div className='boxshadow'>
-                <h2 className="center">Manage Artists</h2>
+                <h2 className="center">Manage Users</h2>
                 <form className="input center" onSubmit={onFormSubmit}>
                     <label>
                         <small>Name:  </small>
@@ -49,6 +53,7 @@ export default function Admin({ artists, refresh }) {
                     </label>
 
                     <button className="button" type="submit">Add</button>
+                    <button className="button" type="button" onClick={onCancel}>Cancel</button>
                 </form>
 
             </div>

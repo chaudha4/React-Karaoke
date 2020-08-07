@@ -17,13 +17,13 @@ body {
   padding: 0;
   background-color: rgb(244, 244, 244);
   color: #333;
+  text-align: center;
 }
 
 small {
   font-size: 1.5rem;
+  white-space: nowrap;
 }
-
-
 
 p {
   font-size: 1.4rem;
@@ -39,27 +39,34 @@ h1 {
 
 li {
   padding: .5rem;
+  white-space: nowrap;
+  text-align: left;
 }
 
 audio {
-  box-shadow: 5px 5px 20px rgba(0,0, 0, 0.4);
   border-radius: 1.2rem;
-  transform: scale(.80);
-  background-color: #ddd;
 }
 
+
 .container {
-  margin: 2% auto;
-  max-width: 90%;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
-  padding: 2rem 2rem;
-  border-radius: 2rem; 
+	margin: 4% 4%;
+	max-width: 90%;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+	padding: 2% 2%;
+	border-radius: 2rem;
+	display: inline-block;
 }
 
 .navcontainer {
   display: flex;
-  align-content: center;
-  margin-left: 20rem;
+  align-items: flex-start;
+}
+
+.adduser {
+  margin: 5%;
+  display: block;
+  text-align: center;
+  text-transform: initial;
 }
 
 .audiocontainer{
@@ -73,6 +80,7 @@ audio {
   box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
   border-radius: 2rem;
   margin: 2rem 2rem;
+  align-items: center;
 }
 
 /* The sidebar menu - For mobile some overrides done in media query*/
@@ -154,9 +162,9 @@ audio {
 .input {
   font-size: 1.6rem;
   padding: 0.5rem 2rem;
-  /*line-height: 2.8rem;
-  border-radius: 20px;
-  border: 1px solid #ddd;*/
+  /*line-height: 2.8rem;*/
+  border-radius: 1rem;
+  border: 1px solid #ddd;
   margin-bottom: 1rem;
 }
 
@@ -258,10 +266,12 @@ audio {
 
   .title {
     font-size: medium;
+    max-width: unset;
+    margin-left: unset;
   }
 
   .sidenav {
-    max-height: 20rem;
+    max-height: auto;
   }
 
   .navcontainer {
@@ -274,7 +284,7 @@ audio {
   }
 
   .audiocontainer {
-    max-height: 400px;
+    max-height: auto;
     overflow-y: auto;
   }
 

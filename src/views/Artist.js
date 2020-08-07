@@ -65,18 +65,7 @@ export default function Artist({ name, refresh }) {
         return (
 
             <div className="artistcontainer">
-                <div className="boxshadow center">
-                    <h2>{name}</h2>
-                    <button className="button" onClick={handleUpload}>
-                        Add Song
-                    </button>
-                    <button className="button" onClick={handleDelete}>
-                        Delete User
-                    </button>
-                    <button className="button" onClick={handleDelSong}>
-                        Delete Songs
-                    </button>
-                </div>
+<div className="boxshadow center"><h2>{name}</h2>
 
                 <div className="audiocontainer">
                     {mp3s.map(a => {
@@ -86,6 +75,20 @@ export default function Artist({ name, refresh }) {
                             artist={name}
                             trigger={trigger} />)
                     })}
+                </div>
+
+                
+                    
+                    <button className="button" onClick={handleUpload}>
+                        Add Song
+                    </button>
+                    <button className="button" onClick={handleDelete}>
+                        Delete User
+                    </button>
+                    <button className="button" onClick={handleDelSong}>
+                        Delete Songs
+                    </button>
+                
                 </div>
             </div>
         );

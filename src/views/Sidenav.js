@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 export default function Sidenav({ artists }) {
 
   return (
-    <div>
+
       <div className="sidenav">
         <h2>Singers</h2>
         {artists.map(artist => (
@@ -17,15 +17,14 @@ export default function Sidenav({ artists }) {
             </Link>
           </li>
         ))}
+        <Link to="/Add">
+          <div className="adduser">
+          <small>Add New User</small>
+          </div>
+        </Link>
       </div>
-      <div className="sidenav">
 
-          <Link to="/Add">
-            <small>Add New User</small>
-          </Link>
-
-      </div>
-    </div>
+   
 
   );
 
