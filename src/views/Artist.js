@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Audio from './Audio';
 import UploadSong from "./UploadSong";
 import DeleteUser from "./DeleteUser";
-import Loading from './Loading';
 
 import * as model from './../models/ArtistModel';
 
@@ -14,8 +13,6 @@ export default function Artist({ name, refresh }) {
     const [mp3s, setMp3s] = useState([]);
     const [showUpload, setShowUpload] = useState(false);
     const [deleteArtist, setDeleteArtist] = useState(false);
-    const [trigger, setTrigger] = useState(false);
-    const [spin, setSpin] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -36,32 +33,12 @@ export default function Artist({ name, refresh }) {
         setDeleteArtist(true);
     }
 
-    function handleDelSong(e) {
-        // Just toggle to trigger a downstream delete that is
-        // handled by each child on its own.
-        setTrigger(!trigger);
-
-        async function fetchData() {
-            setSpin(true);
-            setMp3s(await model.getMp3s(name));
-            setSpin(false);
-        };
-
-        // Dirty way. Refresh after 2 secs hoping the delete went thru.
-        setTimeout(fetchData, 2000);
-    }
-
-
     // After successfull creation, refresh songs.
     async function refreshSongs() {
         setMp3s(await model.getMp3s(name));
     }
 
     function renderArtist() {
-        if (spin) {
-            return (<Loading />);
-        }
-
         return (
 
             <div className="artistcontainer">
@@ -73,21 +50,19 @@ export default function Artist({ name, refresh }) {
                             url={a.url}
                             name={a.name}
                             artist={name}
-                            trigger={trigger} />)
+                            refresh={refreshSongs} />)
                     })}
                 </div>
 
                 
                     
                     <button className="button" onClick={handleUpload}>
-                        Add Song
+                        Upload Song
                     </button>
                     <button className="button" onClick={handleDelete}>
-                        Delete User
+                        Delete Singer
                     </button>
-                    <button className="button" onClick={handleDelSong}>
-                        Delete Songs
-                    </button>
+
                 
                 </div>
             </div>

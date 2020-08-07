@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import * as model from './../models/ArtistModel';
+import * as model from '../models/ArtistModel';
 
 import { Redirect } from "react-router-dom";
 
-export default function Admin({ artists, refresh }) {
+export default function AddUser({ artists, refresh }) {
 
     const [name, setName] = useState("");
     const [redirect, setRedirect] = useState();
@@ -43,7 +43,7 @@ export default function Admin({ artists, refresh }) {
 
         return (
             <div className='boxshadow'>
-                <h2 className="center">Manage Users</h2>
+                <h2 className="center">Add New Singer</h2>
                 <form className="input center" onSubmit={onFormSubmit}>
                     <label>
                         <small>Name:  </small>

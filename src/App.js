@@ -9,7 +9,7 @@ import {
   Route,
 } from "react-router-dom";
 import Sidenav from './views/Sidenav';
-import Admin from './views/Admin';
+import AddUser from './views/AddUser';
 import * as model from './models/ArtistModel';
 
 const App = () => {
@@ -48,9 +48,10 @@ const App = () => {
         <h1 className="title">Dusnumbaries Karaoke</h1>
         <div className="navcontainer">
           <Router>
+
             <Sidenav artists={artists} />
 
-            <div className="main">
+            <div className="rightcontainer">
               <Switch>
                 {artists.map(artist => (
                   <Route path={"/" + artist} key={`path-${artist}`}>
@@ -60,10 +61,11 @@ const App = () => {
                 ))}
 
                 <Route path="/Add">
-                  <Admin artists={artists} refresh={refreshArtists} />
+                  <AddUser artists={artists} refresh={refreshArtists} />
                 </Route>
               </Switch>
             </div>
+            
           </Router>
         </div>
 

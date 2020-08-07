@@ -17,11 +17,14 @@ export default function Sidenav({ artists }) {
             </Link>
           </li>
         ))}
+        
         <Link to="/Add">
           <div className="adduser">
-          <small>Add New User</small>
+          <small>Add New Singer</small>
           </div>
         </Link>
+
+
       </div>
 
    

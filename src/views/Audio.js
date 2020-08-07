@@ -1,47 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import * as model from './../models/ArtistModel';
+import DeleteSong from "./DeleteSong";
 
-export default function Audio({ url, name, artist, trigger }) {
 
-    const [checked, setChecked] = useState(false);
+export default function Audio({ url, name, artist, refresh }) {
+
+    const [deleteSong, setDeleteSong] = useState(false);
 
     console.log("Entering Audio for %s", name);
 
-    useEffect(() => {
-        console.log("Audio::useEffect Received a trigger from Parent ", trigger, checked);
-        async function DoAsync() {
-            console.log("Audio::useEffect Deleting Song %s", name);
-            if (checked) {
-                await model.deleteSong(artist, name);
-                setChecked(false);
-            }
-            //setMp3s(await model.getMp3s(name));
-        };
-        DoAsync();
-    }, [trigger, artist, checked, name]); // Only process if trigger changed
-
-    useEffect(() => {
-        console.log("");
-    }, []); // Only process if trigger changed    
-
-    function onChange(e) {
-        //console.log(e.target);
-        setChecked(!checked);
+    async function onDelete(e) {
+        setDeleteSong(true);
+        //await model.deleteSong(artist, name);
     }
 
-    return (
-        <div className='audioplayer'>
-            <div className='audioplayer--title'>
-                <input type='checkbox' checked={checked} onChange={onChange} />
-                <p className="center">{name}</p>
+    async function onCancelCB(e) {
+        setDeleteSong(false);
+    }
+
+
+    function renderMe() {
+
+        if (deleteSong) {
+            return (<DeleteSong artist={artist}
+                song={name} onCancel={onCancelCB}
+                refresh={refresh} />);
+        }
+        
+
+        return (
+            <div className='audioplayer'>
+                <div className='audioplayer--title'>
+                    <p className="center">{name}</p>
+
+                </div>
+
+                <audio controls preload="auto" src={url} >
+                    Your browser does not support the <code>audio</code> element.</audio>
+
+
+                <button className="button center" type="button" onClick={onDelete} >
+                    Delete</button>
 
             </div>
+        );
 
-            <audio controls preload="auto" src={url}>
-                Your browser does not support the <code>audio</code> element.
-            </audio>
-        </div>
-    );
+    }
+
+    return renderMe();
 
 }
