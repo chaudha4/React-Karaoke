@@ -24,7 +24,7 @@ const fetchArtistsFromDB = async () => {
     })
     .catch(err => console.log("Failed"))
 
-  return names;
+  return names.sort();
 
 };
 
@@ -33,6 +33,17 @@ const fetchMp3sFromDB = async (artist) => {
   let mp3s = [];
 
   var dbx = getDropbox();
+
+  let compareForSort = (a, b) => {
+    let aa = a.name.toUpperCase();
+    let bb = b.name.toUpperCase();
+    if (aa > bb) {
+      return 1;
+    } else if (aa < bb) {
+      return -1;
+    }
+    return 0;
+  }
 
   await dbx.filesListFolder({ path: `/${artist}` })
     .then(async (data) => {
@@ -58,7 +69,7 @@ const fetchMp3sFromDB = async (artist) => {
     .catch(err => console.log("Failed"));
 
   console.log("fetchMp3sFromDB::Returning mp3 - ", JSON.stringify(mp3s));
-  return mp3s;
+  return mp3s.sort(compareForSort);
 };
 
 const uploadMp3sToDB = async (artist, file) => {
