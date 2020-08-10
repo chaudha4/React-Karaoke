@@ -1,0 +1,8 @@
+
+
+# Serving Apps with Client-Side Routing. If you use routers that use the HTML5 pushState history API under the hood (for example, React Router 
+# with browserHistory), many static file servers will fail. For example, if you used React Router with a route for /abhishek, the development 
+# server will respond to localhost:3000/abhishek properly. For ntelify, the solution is to use a _redirects file as documented here
+# https://docs.netlify.com/routing/redirects/
+
+/*  /
