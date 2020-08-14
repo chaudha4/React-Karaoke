@@ -15,7 +15,9 @@ const App = () => {
 
   console.log("Running in %s mode", process.env.NODE_ENV);
   console.log("Running with %s model", process.env.REACT_APP_MODEL);
-  console.log("Running with %s url", process.env.URL);
+  console.log("URL is %s", window.location.href);
+  console.log("Hostname is %s", window.location.hostname);
+  console.log("Pathname is %s", window.location.pathname);
 
   useEffect(() => {
     fetchData();

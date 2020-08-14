@@ -2,15 +2,19 @@ import React from"react";
 import Disqus from "disqus-react";
 
 export default function Discuss() {
+
+  const url = window.location.href;
   const disqusShortname = "dusnumbaries-karaoke";
   const disqusConfig = {
-    url: "{process.env.URL ? process.env.URL : http://localhost:3000}",
+    url: url,
     identifier: "Comments",
     title: "Dusnumbaries Karaoke",
   };
 
+  console.log(disqusConfig);
+
   return (
-    <div>
+    <div className="sidenav">
       <Disqus.DiscussionEmbed
         shortname={disqusShortname}
         config={disqusConfig}
